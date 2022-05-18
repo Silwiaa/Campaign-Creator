@@ -40,12 +40,12 @@ public class CampaignController {
 
     @GetMapping(value = "/getCampaigns")
     public ResponseEntity<List<CampaignDto>> getCampaigns() {
-        List<Campaign> campains = campaignService.getAllCampaigns();
-        return ResponseEntity.ok(campaignMapper.mapToCampainDtoList(campains));
+        List<Campaign> campaigns = campaignService.findALlCampaigns();
+        return ResponseEntity.ok(campaignMapper.mapToCampainDtoList(campaigns));
     }
 
     @GetMapping(value = "/getCampaign/{campaignId}")
     public ResponseEntity<CampaignDto> getCampaign(@PathVariable Long campaignId) throws CampaignNotFoundException {
-        return ResponseEntity.ok(campaignMapper.mapToCampainDto(campaignService.findCampaign(campaignId)));
+        return ResponseEntity.ok(campaignMapper.mapToCampainDto(campaignService.findCampaignByID(campaignId)));
     }
 }
