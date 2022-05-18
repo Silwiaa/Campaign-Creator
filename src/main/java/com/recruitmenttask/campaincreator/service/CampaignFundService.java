@@ -17,9 +17,9 @@ public class CampaignFundService {
         return campaignFundRepository.findById(fundId).orElseThrow(FundNotFoundException::new);
     }
 
-    public CampaignFund updateCampaignFund(Long fundId, BigDecimal bidAmount) throws FundNotFoundException {
+    public CampaignFund updateCampaignFund(Long fundId, double bidAmount) throws FundNotFoundException {
         CampaignFund campaignFund = campaignFundRepository.findById(fundId).orElseThrow(FundNotFoundException::new);
-        campaignFund.setCampaignFund(campaignFund.getCampaignFund().min(bidAmount));
+        campaignFund.setFundValue(campaignFund.getFundValue().min(new BigDecimal(bidAmount)));
         return campaignFund;
     }
 }
