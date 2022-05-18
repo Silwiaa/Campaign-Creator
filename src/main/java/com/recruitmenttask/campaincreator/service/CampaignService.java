@@ -22,4 +22,9 @@ public class CampaignService {
         saveCampaign(campaign);
         return campaign;
     }
+
+    public void deleteCampaign(Long campaignId) throws CampaignNotFoundException {
+        Campaign campaign = campaignRepository.findById(campaignId).orElseThrow(CampaignNotFoundException::new);
+        campaignRepository.delete(campaign);
+    }
 }

@@ -31,7 +31,7 @@ public class CampaignController {
     }
 
     @DeleteMapping(value = "/deleteCampaign/{taskId}")
-    public ResponseEntity<Void> deleteCampaign(@PathVariable Long campaignId) {
+    public ResponseEntity<Void> deleteCampaign(@PathVariable Long campaignId) throws CampaignNotFoundException {
         campaignService.deleteCampaign(campaignId);
         return ResponseEntity.ok().build();
     }
