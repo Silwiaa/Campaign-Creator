@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 public class CampaignDto {
     private Long campaignId;
     private String name;
+    private String keyword;
     private BigDecimal bidAmount;
     private String campaignFound;
     private Status status;

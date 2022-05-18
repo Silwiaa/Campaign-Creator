@@ -2,11 +2,11 @@ package com.recruitmenttask.campaincreator.domain;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,12 +16,17 @@ import java.math.BigDecimal;
 public class Campaign {
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CAMPAIGN_ID")
     private Long campaignId;
 
     @NotNull
     @Column(name = "NAME")
     private String name;
+
+    @NotNull
+    @Column(name = "KEYWORDS")
+    private String keyword;
 
     @NotNull
     @Column(name = "BID_AMOUNT")
