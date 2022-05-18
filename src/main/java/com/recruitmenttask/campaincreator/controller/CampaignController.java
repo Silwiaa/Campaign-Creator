@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/campaign")
@@ -34,5 +36,16 @@ public class CampaignController {
     public ResponseEntity<Void> deleteCampaign(@PathVariable Long campaignId) throws CampaignNotFoundException {
         campaignService.deleteCampaign(campaignId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "/getCampaigns")
+    public ResponseEntity<List<CampaignDto>> getCampaigns() {
+        List<Campaign> campains = campaignService.getAllCampaigns();
+        return ResponseEntity.ok(campaignMapper.mapToCampainDtoList(campains));
+    }
+
+    @GetMapping(value = "/getCampaign/{campaignId}")
+    public ResponseEntity<CampaignDto> getCampaign(@PathVariable Long campaignId) throws CampaignNotFoundException {
+        return ResponseEntity.ok(campaignMapper.mapToCampainDto(campaignService.findCampaign(campaignId)));
     }
 }
