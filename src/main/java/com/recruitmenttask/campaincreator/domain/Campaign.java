@@ -30,9 +30,9 @@ public class Campaign {
     @Column(name = "BID_AMOUNT")
     private BigDecimal bidAmount;
 
-    @NotNull
-    @Column(name = "CAMPAIGN_FOUND")
-    private String campaignFound;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "FUND_ID")
+    private CampaignFund campaignFund;
 
     @NotNull
     @Column(name = "STATUS")
