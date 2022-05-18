@@ -6,6 +6,8 @@ import com.recruitmenttask.campaincreator.repository.CampaignFundRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 @RequiredArgsConstructor
 public class CampaignFundService {
@@ -13,5 +15,11 @@ public class CampaignFundService {
 
     public CampaignFund findCampaignFundById(Long fundId) throws FundNotFoundException {
         return campaignFundRepository.findById(fundId).orElseThrow(FundNotFoundException::new);
+    }
+
+    public CampaignFund updateCampaignFund(Long fundId, BigDecimal bidAmount) throws FundNotFoundException {
+        CampaignFund campaignFund = campaignFundRepository.findById(fundId).orElseThrow(FundNotFoundException::new);
+        campaignFund.setCampaignFund(campaignFund.getCampaignFund().min(bidAmount));
+        return campaignFund;
     }
 }
