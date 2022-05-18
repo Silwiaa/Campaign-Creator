@@ -4,6 +4,9 @@ import com.recruitmenttask.campaincreator.domain.Campaign;
 import com.recruitmenttask.campaincreator.domain.CampaignDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CampaignMapper {
     public Campaign mapToCampain(CampaignDto campaignDto) {
@@ -30,5 +33,11 @@ public class CampaignMapper {
                 .town(campaign.getTown())
                 .radius(campaign.getRadius())
                 .build();
+    }
+
+    public List<CampaignDto> mapToCampainDtoList(List<Campaign> campaigns) {
+        return campaigns.stream()
+                .map(this::mapToCampainDto)
+                .collect(Collectors.toList());
     }
 }
