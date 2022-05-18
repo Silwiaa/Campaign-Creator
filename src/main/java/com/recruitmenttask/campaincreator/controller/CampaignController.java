@@ -1,10 +1,12 @@
 package com.recruitmenttask.campaincreator.controller;
 
-import com.recruitmenttask.campaincreator.controller.exception.CampaignNotFoundException;
+import com.recruitmenttask.campaincreator.exceptiond.BidAmountNotValidException;
+import com.recruitmenttask.campaincreator.exceptiond.CampaignNotFoundException;
 import com.recruitmenttask.campaincreator.domain.Campaign;
 import com.recruitmenttask.campaincreator.domain.CampaignDto;
 import com.recruitmenttask.campaincreator.mapper.CampaignMapper;
 import com.recruitmenttask.campaincreator.service.CampaignService;
+import com.recruitmenttask.campaincreator.validator.CampaignValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +21,17 @@ import java.util.List;
 public class CampaignController {
     private final CampaignMapper campaignMapper;
     private final CampaignService campaignService;
+    private final CampaignValidator campaignValidator;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/createCampaign")
-    public ResponseEntity<Void> createCampaign(@RequestBody CampaignDto campaignDto) {
-        campaignService.saveCampaign(campaignMapper.mapToCampain(campaignDto));
+    public ResponseEntity<Void> createCampaign(@RequestBody CampaignDto campaignDto) throws BidAmountNotValidException {
+        campaignService.saveCampaign(campaignValidator.validateBidAmount(campaignMapper.mapToCampain(campaignDto)));
         return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "/updateCampaign")
-    public ResponseEntity<CampaignDto> updateCampaign(@RequestBody CampaignDto campaignDto) throws CampaignNotFoundException {
-        Campaign campaign = campaignService.updateCampaign(campaignMapper.mapToCampain(campaignDto));
+    public ResponseEntity<CampaignDto> updateCampaign(@RequestBody CampaignDto campaignDto) throws CampaignNotFoundException, BidAmountNotValidException {
+        Campaign campaign = campaignService.updateCampaign(campaignValidator.validateBidAmount(campaignMapper.mapToCampain(campaignDto)));
         return ResponseEntity.ok(campaignMapper.mapToCampainDto(campaign));
     }
 

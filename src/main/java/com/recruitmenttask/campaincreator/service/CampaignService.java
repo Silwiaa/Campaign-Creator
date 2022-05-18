@@ -1,6 +1,6 @@
 package com.recruitmenttask.campaincreator.service;
 
-import com.recruitmenttask.campaincreator.controller.exception.CampaignNotFoundException;
+import com.recruitmenttask.campaincreator.exceptiond.CampaignNotFoundException;
 import com.recruitmenttask.campaincreator.domain.Campaign;
 import com.recruitmenttask.campaincreator.repository.CampaignRepository;
 import lombok.RequiredArgsConstructor;

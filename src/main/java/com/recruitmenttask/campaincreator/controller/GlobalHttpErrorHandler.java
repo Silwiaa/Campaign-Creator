@@ -1,7 +1,7 @@
 package com.recruitmenttask.campaincreator.controller;
 
-import com.recruitmenttask.campaincreator.controller.exception.BidAmountNotValidException;
-import com.recruitmenttask.campaincreator.controller.exception.CampaignNotFoundException;
+import com.recruitmenttask.campaincreator.exceptiond.BidAmountNotValidException;
+import com.recruitmenttask.campaincreator.exceptiond.CampaignNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
