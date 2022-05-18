@@ -18,11 +18,11 @@ public class CampaignService {
     }
 
     public Campaign updateCampaign(Campaign campaign) throws CampaignNotFoundException {
-        if(!campaignRepository.existsById(campaign.getCampaignId())) {
-            throw new CampaignNotFoundException();
+        if(campaignRepository.existsById(campaign.getCampaignId())) {
+            saveCampaign(campaign);
+
         }
-        saveCampaign(campaign);
-        return campaign;
+        throw new CampaignNotFoundException();
     }
 
     public void deleteCampaign(Long campaignId) throws CampaignNotFoundException {
