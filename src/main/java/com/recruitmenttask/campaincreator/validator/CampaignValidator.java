@@ -1,10 +1,8 @@
 package com.recruitmenttask.campaincreator.validator;
 
 import com.recruitmenttask.campaincreator.domain.Campaign;
-import com.recruitmenttask.campaincreator.exceptiond.BidAmountNotValidException;
+import com.recruitmenttask.campaincreator.exception.BidAmountNotValidException;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
 
 @Component
 public class CampaignValidator {
