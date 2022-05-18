@@ -1,5 +1,6 @@
 package com.recruitmenttask.campaincreator.service;
 
+import com.recruitmenttask.campaincreator.controller.exception.CampaignNotFoundException;
 import com.recruitmenttask.campaincreator.domain.Campaign;
 import com.recruitmenttask.campaincreator.repository.CampaignRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +15,11 @@ public class CampaignService {
         campaignRepository.save(campaign);
     }
 
-    public Campaign updateCampaign(Campaign campaign) {
+    public Campaign updateCampaign(Campaign campaign) throws CampaignNotFoundException {
         if(!campaignRepository.existsById(campaign.getCampaignId())) {
             throw new CampaignNotFoundException();
         }
         saveCampaign(campaign);
+        return campaign;
     }
 }

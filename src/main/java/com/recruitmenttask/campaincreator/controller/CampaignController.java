@@ -1,5 +1,6 @@
 package com.recruitmenttask.campaincreator.controller;
 
+import com.recruitmenttask.campaincreator.controller.exception.CampaignNotFoundException;
 import com.recruitmenttask.campaincreator.domain.Campaign;
 import com.recruitmenttask.campaincreator.domain.CampaignDto;
 import com.recruitmenttask.campaincreator.mapper.CampaignMapper;
