@@ -20,14 +20,19 @@ public class CampaignController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/createCampaign")
     public ResponseEntity<Void> createCampaign(@RequestBody CampaignDto campaignDto) {
-        Campaign campaign = campaignMapper.mapToCampain(campaignDto);
-        campaignService.saveCampaign(campaign);
+        campaignService.saveCampaign(campaignMapper.mapToCampain(campaignDto));
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(value = "/updateBooking")
+    @PutMapping(value = "/updateCampaign")
     public ResponseEntity<CampaignDto> updateCampaign(@RequestBody CampaignDto campaignDto) throws CampaignNotFoundException {
         Campaign campaign = campaignService.updateCampaign(campaignMapper.mapToCampain(campaignDto));
         return ResponseEntity.ok(campaignMapper.mapToCampainDto(campaign));
+    }
+
+    @DeleteMapping(value = "/deleteCampaign/{taskId}")
+    public ResponseEntity<Void> deleteCampaign(@PathVariable Long campaignId) {
+        campaignService.deleteCampaign(campaignId);
+        return ResponseEntity.ok().build();
     }
 }
