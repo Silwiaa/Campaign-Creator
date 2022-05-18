@@ -9,5 +9,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CampaignFundDto {
     private Long foundId;
-    private Campaign campaign;
+    private Long campaignId;
 }
