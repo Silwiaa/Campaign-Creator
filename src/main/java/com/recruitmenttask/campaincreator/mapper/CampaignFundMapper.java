@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class CampaignFoundMapper {
+public class CampaignFundMapper {
     private final CampaignService campaignService;
 
     public CampaignFund mapToCampaignFund(CampaignFundDto campaignFundDto) throws CampaignNotFoundException {
