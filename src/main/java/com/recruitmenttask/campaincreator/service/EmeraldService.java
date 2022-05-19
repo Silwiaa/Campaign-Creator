@@ -23,13 +23,16 @@ public class EmeraldService {
         return emeraldRepository.findById(emeraldId).orElseThrow(EmeraldNotFoundException::new);
     }
 
-    public Emerald updateEmerald(Long emeraldId, double bidAmount, Long campaignId) throws EmeraldNotFoundException, CampaignNotFoundException {
+    public Emerald updateBalance(Long emeraldId, double bidAmount) throws EmeraldNotFoundException {
         Emerald emerald = findEmeraldById(emeraldId);
         emerald.setBalance(emerald.getBalance().min(new BigDecimal(bidAmount)));
-        if(campaignId != 0) {
-            Campaign campaign = campaignService.findCampaignByID(campaignId);
-            emerald.getCampaigns().add(campaign);
-        }
+        return emerald;
+    }
+
+    public Emerald updateCampaigns (Long emeraldId, Long campaignId) throws EmeraldNotFoundException, CampaignNotFoundException {
+        Emerald emerald = findEmeraldById(emeraldId);
+        Campaign campaign = campaignService.findCampaignByID(campaignId);
+        emerald.getCampaigns().add(campaign);
         return emerald;
     }
 }
