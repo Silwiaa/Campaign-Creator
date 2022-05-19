@@ -2,7 +2,7 @@ package com.recruitmenttask.campaincreator.controller;
 
 import com.recruitmenttask.campaincreator.exception.BidAmountNotValidException;
 import com.recruitmenttask.campaincreator.exception.CampaignNotFoundException;
-import com.recruitmenttask.campaincreator.exception.FundNotFoundException;
+import com.recruitmenttask.campaincreator.exception.EmeraldNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,8 +19,8 @@ public class GlobalHttpErrorHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>("Bid value needs to be bigger or equal to 50", HttpStatus.NOT_ACCEPTABLE);
     }
 
-    @ExceptionHandler(FundNotFoundException.class)
-    public ResponseEntity<Object> handleFundNotFoundException(FundNotFoundException fundNotFoundException) {
-        return new ResponseEntity<>("Campaign fund with given id doesn't exist or can't be found", HttpStatus.NOT_FOUND);
+    @ExceptionHandler(EmeraldNotFoundException.class)
+    public ResponseEntity<Object> handleEmeraldNotFoundException(EmeraldNotFoundException emeraldNotFoundException) {
+        return new ResponseEntity<>("Emerald with given id doesn't exist or can't be found", HttpStatus.NOT_FOUND);
     }
 }
