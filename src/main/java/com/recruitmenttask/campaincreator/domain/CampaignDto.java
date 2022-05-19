@@ -14,7 +14,7 @@ public class CampaignDto {
     private String name;
     private String keyword;
     private BigDecimal bidAmount;
-    private String campaignFound;
+    private BigDecimal campaignFound;
     private Status status;
     private String town;
     private BigDecimal radius;

@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,17 +23,20 @@ public class Campaign {
     @Column(name = "NAME")
     private String name;
 
-    @NotNull
-    @Column(name = "KEYWORDS")
-    private String keyword;
+    @OneToMany(
+            targetEntity = Keyword.class,
+            mappedBy = "campaign",
+            cascade = CascadeType.ALL
+    )
+    private List<Keyword> keywords;
 
     @NotNull
     @Column(name = "BID_AMOUNT")
     private BigDecimal bidAmount;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "FUND_ID")
-    private CampaignFund campaignFund;
+    @NotNull
+    @Column(name = "CAMPAIGN_FUND")
+    private BigDecimal campaignFund;
 
     @NotNull
     @Column(name = "STATUS")
@@ -43,4 +47,8 @@ public class Campaign {
 
     @Column(name = "RADIUS")
     private BigDecimal radius;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "EMERALD_ID")
+    private Emerald emerald;
 }
