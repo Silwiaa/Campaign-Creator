@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Setter
 @Getter
 @Entity(name ="CAMPAIGNS")
 public class Campaign {
@@ -23,12 +24,8 @@ public class Campaign {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(
-            targetEntity = Keyword.class,
-            mappedBy = "campaign",
-            cascade = CascadeType.ALL
-    )
-    private List<Keyword> keywords;
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "campaigns")
+    public List<Keyword> keywords;
 
     @NotNull
     @Column(name = "BID_AMOUNT")
@@ -51,4 +48,8 @@ public class Campaign {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "EMERALD_ID")
     private Emerald emerald;
+
+    @NotNull
+    @Column(name = "ENABLE")
+    private boolean enable;
 }

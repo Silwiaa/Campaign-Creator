@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -16,9 +17,18 @@ public class EmeraldService {
     private final EmeraldRepository emeraldRepository;
     private final CampaignService campaignService;
 
-    public void saveEmerald(Emerald emerald) {
+    private void saveEmerald(Emerald emerald) {
         emeraldRepository.save(emerald);
     }
+
+    public void createEmerald() {
+        Emerald emerald = Emerald.builder()
+                .balance(BigDecimal.ZERO)
+                .campaigns(new ArrayList<>())
+                .build();
+        saveEmerald(emerald);
+    }
+
     public Emerald findEmeraldById(Long emeraldId) throws EmeraldNotFoundException {
         return emeraldRepository.findById(emeraldId).orElseThrow(EmeraldNotFoundException::new);
     }
@@ -31,7 +41,7 @@ public class EmeraldService {
 
     public Emerald updateCampaigns (Long emeraldId, Long campaignId) throws EmeraldNotFoundException, CampaignNotFoundException {
         Emerald emerald = findEmeraldById(emeraldId);
-        Campaign campaign = campaignService.findCampaignByID(campaignId);
+        Campaign campaign = campaignService.findCampaignById(campaignId);
         emerald.getCampaigns().add(campaign);
         return emerald;
     }

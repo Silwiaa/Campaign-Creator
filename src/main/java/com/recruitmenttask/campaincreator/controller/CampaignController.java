@@ -4,6 +4,7 @@ import com.recruitmenttask.campaincreator.exception.BidAmountNotValidException;
 import com.recruitmenttask.campaincreator.exception.CampaignNotFoundException;
 import com.recruitmenttask.campaincreator.domain.Campaign;
 import com.recruitmenttask.campaincreator.domain.CampaignDto;
+import com.recruitmenttask.campaincreator.exception.EmeraldNotFoundException;
 import com.recruitmenttask.campaincreator.mapper.CampaignMapper;
 import com.recruitmenttask.campaincreator.service.CampaignService;
 import com.recruitmenttask.campaincreator.validator.CampaignValidator;
@@ -24,18 +25,18 @@ public class CampaignController {
     private final CampaignValidator campaignValidator;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/createCampaign")
-    public ResponseEntity<Void> createCampaign(@RequestBody CampaignDto campaignDto) throws BidAmountNotValidException {
+    public ResponseEntity<Void> createCampaign(@RequestBody CampaignDto campaignDto) throws BidAmountNotValidException, EmeraldNotFoundException {
         campaignService.saveCampaign(campaignValidator.validateBidAmount(campaignMapper.mapToCampain(campaignDto)));
         return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "/updateCampaign")
-    public ResponseEntity<CampaignDto> updateCampaign(@RequestBody CampaignDto campaignDto) throws CampaignNotFoundException, BidAmountNotValidException {
+    public ResponseEntity<CampaignDto> updateCampaign(@RequestBody CampaignDto campaignDto) throws CampaignNotFoundException, BidAmountNotValidException, EmeraldNotFoundException {
         Campaign campaign = campaignService.updateCampaign(campaignValidator.validateBidAmount(campaignMapper.mapToCampain(campaignDto)));
         return ResponseEntity.ok(campaignMapper.mapToCampainDto(campaign));
     }
 
-    @DeleteMapping(value = "/deleteCampaign/{taskId}")
+    @PutMapping(value = "/deleteCampaign/{campaignId}")
     public ResponseEntity<Void> deleteCampaign(@PathVariable Long campaignId) throws CampaignNotFoundException {
         campaignService.deleteCampaign(campaignId);
         return ResponseEntity.ok().build();
@@ -49,6 +50,6 @@ public class CampaignController {
 
     @GetMapping(value = "/getCampaign/{campaignId}")
     public ResponseEntity<CampaignDto> getCampaign(@PathVariable Long campaignId) throws CampaignNotFoundException {
-        return ResponseEntity.ok(campaignMapper.mapToCampainDto(campaignService.findCampaignByID(campaignId)));
+        return ResponseEntity.ok(campaignMapper.mapToCampainDto(campaignService.findCampaignById(campaignId)));
     }
 }

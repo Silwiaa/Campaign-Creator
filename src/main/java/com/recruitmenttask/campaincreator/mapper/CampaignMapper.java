@@ -2,23 +2,33 @@ package com.recruitmenttask.campaincreator.mapper;
 
 import com.recruitmenttask.campaincreator.domain.Campaign;
 import com.recruitmenttask.campaincreator.domain.CampaignDto;
+import com.recruitmenttask.campaincreator.domain.Keyword;
+import com.recruitmenttask.campaincreator.exception.EmeraldNotFoundException;
+import com.recruitmenttask.campaincreator.service.EmeraldService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class CampaignMapper {
-    public Campaign mapToCampain(CampaignDto campaignDto) {
+    private final CampaignMapper campaignMapper;
+    private final EmeraldService emeraldService;
+
+    public Campaign mapToCampain(CampaignDto campaignDto) throws EmeraldNotFoundException {
         return Campaign.builder()
                 .campaignId(campaignDto.getCampaignId())
                 .name(campaignDto.getName())
-                .keyword(campaignDto.getKeyword())
+                .keywords(campaignMapper.mapToCampain(campaignDto).getKeywords())
                 .bidAmount(campaignDto.getBidAmount())
-                .campaignFound(campaignDto.getCampaignFound())
+                .campaignFund(campaignDto.getCampaignFound())
                 .status(campaignDto.getStatus())
                 .town(campaignDto.getTown())
                 .radius(campaignDto.getRadius())
+                .emerald(emeraldService.findEmeraldById(campaignDto.getEmeraldId()))
+                .enable(campaignDto.isEnable())
                 .build();
     }
 
@@ -26,12 +36,13 @@ public class CampaignMapper {
         return CampaignDto.builder()
                 .campaignId(campaign.getCampaignId())
                 .name(campaign.getName())
-                .keyword(campaign.getKeyword())
+                .keywordIds(campaign.getKeywords().stream().map(Keyword::getKeywordId).collect(Collectors.toList()))
                 .bidAmount(campaign.getBidAmount())
-                .campaignFound(campaign.getCampaignFound())
+                .campaignFound(campaign.getCampaignFund())
                 .status(campaign.getStatus())
                 .town(campaign.getTown())
                 .radius(campaign.getRadius())
+                .emeraldId(campaign.getEmerald().getEmeraldId())
                 .build();
     }
 

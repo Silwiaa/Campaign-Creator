@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+
 @Builder
 @Getter
 @AllArgsConstructor
 public class KeywordDto {
-    private Long campaignId;
+    private Long keywordId;
     private String name;
-    private Campaign campaign;
+    private List<Long> campaignIds;
     private boolean active;
 }

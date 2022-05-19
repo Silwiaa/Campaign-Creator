@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,15 +19,19 @@ public class Keyword {
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "KEYWORD_ID")
-    private Long campaignId;
+    private Long keywordId;
 
     @NotNull
     @Column(name = "NAME")
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "CAMPAIGN_ID")
-    private Campaign campaign;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "JOIN_CAMPAIGN_KEYWORD",
+            joinColumns = {@JoinColumn(name = "KEYWORD_ID", referencedColumnName = "KEYWORD_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CAMPAIGN_ID", referencedColumnName = "CAMPAIGN_ID")}
+    )
+    private List<Campaign> campaigns;
 
     @NotNull
     @Column(name = "ACTIVE")

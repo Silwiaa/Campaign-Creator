@@ -20,21 +20,21 @@ public class CampaignService {
     public Campaign updateCampaign(Campaign campaign) throws CampaignNotFoundException {
         if(campaignRepository.existsById(campaign.getCampaignId())) {
             saveCampaign(campaign);
-
         }
         throw new CampaignNotFoundException();
     }
 
     public void deleteCampaign(Long campaignId) throws CampaignNotFoundException {
-        Campaign campaign = findCampaignByID(campaignId);
-        campaignRepository.delete(campaign);
+        Campaign campaign = findCampaignById(campaignId);
+        campaign.setEnable(false);
+        saveCampaign(campaign);
     }
 
     public List<Campaign> findALlCampaigns() {
         return campaignRepository.findAll();
     }
 
-    public Campaign findCampaignByID(Long campaignId) throws CampaignNotFoundException {
+    public Campaign findCampaignById(Long campaignId) throws CampaignNotFoundException {
         return campaignRepository.findById(campaignId).orElseThrow(CampaignNotFoundException::new);
     }
 }

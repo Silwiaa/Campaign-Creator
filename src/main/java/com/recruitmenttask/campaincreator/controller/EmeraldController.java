@@ -13,8 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -26,7 +24,7 @@ public class EmeraldController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/createEmerald")
     public ResponseEntity<Void> createEmerald() {
-        emeraldService.saveEmerald(Emerald.builder().balance(BigDecimal.ZERO).campaigns(new ArrayList<>()).build());
+        emeraldService.createEmerald();
         return ResponseEntity.ok().build();
     }
 
