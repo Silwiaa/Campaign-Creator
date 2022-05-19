@@ -1,8 +1,6 @@
 package com.recruitmenttask.campaincreator.controller;
 
-import com.recruitmenttask.campaincreator.exception.BidAmountNotValidException;
-import com.recruitmenttask.campaincreator.exception.CampaignNotFoundException;
-import com.recruitmenttask.campaincreator.exception.EmeraldNotFoundException;
+import com.recruitmenttask.campaincreator.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,5 +20,15 @@ public class GlobalHttpErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EmeraldNotFoundException.class)
     public ResponseEntity<Object> handleEmeraldNotFoundException(EmeraldNotFoundException emeraldNotFoundException) {
         return new ResponseEntity<>("Emerald with given id doesn't exist or can't be found", HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SellerNotFoundException.class)
+    public ResponseEntity<Object> handleSellerNotFoundException(SellerNotFoundException sellerNotFoundException) {
+        return new ResponseEntity<>("Seller with given id doesn't exist or can't be found", HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SellerAlreadyBlockedException.class)
+    public ResponseEntity<Object> handleSellerAlreadyBlockedException(SellerAlreadyBlockedException sellerAlreadyBlockedException) {
+        return new ResponseEntity<>("Seller with given id already blocked in the system", HttpStatus.CONFLICT);
     }
 }
