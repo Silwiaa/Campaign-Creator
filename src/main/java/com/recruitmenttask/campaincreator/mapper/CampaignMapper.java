@@ -4,7 +4,9 @@ import com.recruitmenttask.campaincreator.domain.Campaign;
 import com.recruitmenttask.campaincreator.domain.CampaignDto;
 import com.recruitmenttask.campaincreator.domain.Keyword;
 import com.recruitmenttask.campaincreator.exception.EmeraldNotFoundException;
+import com.recruitmenttask.campaincreator.exception.KeywordNotFoundException;
 import com.recruitmenttask.campaincreator.service.EmeraldService;
+import com.recruitmenttask.campaincreator.service.KeywordService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +16,14 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class CampaignMapper {
-    private final CampaignMapper campaignMapper;
+    private final KeywordService keywordService;
     private final EmeraldService emeraldService;
 
-    public Campaign mapToCampain(CampaignDto campaignDto) throws EmeraldNotFoundException {
+    public Campaign mapToCampain(CampaignDto campaignDto) throws EmeraldNotFoundException, KeywordNotFoundException {
         return Campaign.builder()
                 .campaignId(campaignDto.getCampaignId())
                 .name(campaignDto.getName())
-                .keywords(campaignMapper.mapToCampain(campaignDto).getKeywords())
+                .keywords(keywordService.findKeywordsById(campaignDto.getKeywordIds()))
                 .bidAmount(campaignDto.getBidAmount())
                 .campaignFund(campaignDto.getCampaignFound())
                 .status(campaignDto.getStatus())

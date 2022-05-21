@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -41,4 +43,11 @@ public class KeywordService {
         return keyword;
     }
 
+    public List<Keyword> findKeywordsById(List<Long> keywordId) throws KeywordNotFoundException {
+        List<Keyword> keywords = new ArrayList<>();
+        for (Long id : keywordId) {
+            keywords.add(findKeywordById(id));
+        }
+        return keywords;
+    }
 }

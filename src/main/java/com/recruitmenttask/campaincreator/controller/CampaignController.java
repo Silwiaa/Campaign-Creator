@@ -5,6 +5,7 @@ import com.recruitmenttask.campaincreator.exception.CampaignNotFoundException;
 import com.recruitmenttask.campaincreator.domain.Campaign;
 import com.recruitmenttask.campaincreator.domain.CampaignDto;
 import com.recruitmenttask.campaincreator.exception.EmeraldNotFoundException;
+import com.recruitmenttask.campaincreator.exception.KeywordNotFoundException;
 import com.recruitmenttask.campaincreator.mapper.CampaignMapper;
 import com.recruitmenttask.campaincreator.service.CampaignService;
 import com.recruitmenttask.campaincreator.validator.CampaignValidator;
@@ -25,13 +26,13 @@ public class CampaignController {
     private final CampaignValidator campaignValidator;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/createCampaign")
-    public ResponseEntity<Void> createCampaign(@RequestBody CampaignDto campaignDto) throws BidAmountNotValidException, EmeraldNotFoundException {
+    public ResponseEntity<Void> createCampaign(@RequestBody CampaignDto campaignDto) throws BidAmountNotValidException, EmeraldNotFoundException, KeywordNotFoundException {
         campaignService.saveCampaign(campaignValidator.validateBidAmount(campaignMapper.mapToCampain(campaignDto)));
         return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "/updateCampaign")
-    public ResponseEntity<CampaignDto> updateCampaign(@RequestBody CampaignDto campaignDto) throws CampaignNotFoundException, BidAmountNotValidException, EmeraldNotFoundException {
+    public ResponseEntity<CampaignDto> updateCampaign(@RequestBody CampaignDto campaignDto) throws CampaignNotFoundException, BidAmountNotValidException, EmeraldNotFoundException, KeywordNotFoundException {
         Campaign campaign = campaignService.updateCampaign(campaignValidator.validateBidAmount(campaignMapper.mapToCampain(campaignDto)));
         return ResponseEntity.ok(campaignMapper.mapToCampainDto(campaign));
     }
