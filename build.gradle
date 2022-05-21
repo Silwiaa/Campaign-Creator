@@ -29,7 +29,7 @@ dependencies {
     implementation 'junit:junit:4.13.2'
 
     runtimeOnly 'mysql:mysql-connector-java:8.0.29'
-    runtimeOnly('com.h2database:h2:2.1.212')
+    runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.3.5'
     testImplementation ('org.springframework.boot:spring-boot-starter-test:2.6.7') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
