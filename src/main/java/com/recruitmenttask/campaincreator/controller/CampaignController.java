@@ -45,7 +45,7 @@ public class CampaignController {
 
     @GetMapping(value = "/getCampaigns")
     public ResponseEntity<List<CampaignDto>> getCampaigns() {
-        List<Campaign> campaigns = campaignService.findALlCampaigns();
+        List<Campaign> campaigns = campaignService.findAllCampaigns();
         return ResponseEntity.ok(campaignMapper.mapToCampainDtoList(campaigns));
     }
 

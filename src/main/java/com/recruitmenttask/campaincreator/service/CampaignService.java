@@ -30,7 +30,7 @@ public class CampaignService {
         saveCampaign(campaign);
     }
 
-    public List<Campaign> findALlCampaigns() {
+    public List<Campaign> findAllCampaigns() {
         return campaignRepository.findAll();
     }
 
