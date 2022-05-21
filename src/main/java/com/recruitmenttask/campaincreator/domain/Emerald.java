@@ -30,5 +30,4 @@ public class Emerald {
             cascade = CascadeType.ALL
     )
     private List<Campaign> campaigns;
-
 }
